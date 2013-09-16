@@ -1,0 +1,34 @@
+CREATE DATABASE IF NOT EXISTS transferfile DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+
+GRANT ALL PRIVILEGES ON transferfile.* TO transferfile@'localhost' IDENTIFIED BY 'raeWeer5uh';
+use transferfile;
+
+CREATE TABLE IF NOT EXISTS users(
+id int NOT NULL AUTO_INCREMENT,
+name varchar(20) NULL,
+email varchar(20) NOT NULL,
+PRIMARY KEY(id)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS files(
+id int NOT NULL AUTO_INCREMENT,
+path varchar(40) NOT NULL,
+PRIMARY KEY(id)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS permission(
+id_user int NOT NULL AUTO_INCREMENT,
+id_files varchar(20) NULL,
+CONSTRAINT FOREIGN KEY('id_user') REFERENCES users('id') ON DELETE CASCADE ON UPDATE CASCADE, 
+CONSTRAINT FOREIGN KEY('id_files') REFERENCES files('id') ON DELETE CASCADE ON UPDATE CASCADE 
+)ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS authorization(
+id_user int NOT NULL,
+login varchar(25) NOT NULL,
+password varchar(40) NOT NULL,
+CONSTRAINT FOREIGN KEY('id_user') REFERENCES users('id') ON DELETE CASCADE ON UPDATE CASCADE, 
+)ENGINE=InnoDB;
+
+
